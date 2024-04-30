@@ -5,7 +5,7 @@ import com.logifuture.wallet.dto.wallet.response.GetWalletResponse;
 import com.logifuture.wallet.entitity.Wallet;
 import com.logifuture.wallet.exceptions.user.UserNotFoundException;
 import com.logifuture.wallet.exceptions.wallet.UnauthorizedUserForWallet;
-import com.logifuture.wallet.exceptions.wallet.WalletNotExists;
+import com.logifuture.wallet.exceptions.wallet.WalletIsNotAssignedToUser;
 import com.logifuture.wallet.mapper.WalletMapper;
 import com.logifuture.wallet.repository.WalletRepository;
 import com.logifuture.wallet.service.user.UserService;
@@ -30,7 +30,7 @@ public class WalletRetrievalService extends BaseWalletService {
      *
      * @param walletId         The ID of the wallet to retrieve details for.
      * @param getWalletRequest The request containing the user ID.
-     * @throws WalletNotExists           if the wallet does not exist for the given user.
+     * @throws WalletIsNotAssignedToUser           if the wallet does not exist for the given user.
      * @throws UnauthorizedUserForWallet if the user is not authorized to access the wallet.
      * @throws UserNotFoundException if no user with the specified ID is found.
      * @return A response containing details of the requested wallet.

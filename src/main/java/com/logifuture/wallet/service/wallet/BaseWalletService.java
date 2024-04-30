@@ -4,7 +4,7 @@ import com.logifuture.wallet.entitity.User;
 import com.logifuture.wallet.entitity.Wallet;
 import com.logifuture.wallet.exceptions.user.UserNotFoundException;
 import com.logifuture.wallet.exceptions.wallet.UnauthorizedUserForWallet;
-import com.logifuture.wallet.exceptions.wallet.WalletNotExists;
+import com.logifuture.wallet.exceptions.wallet.WalletIsNotAssignedToUser;
 import com.logifuture.wallet.repository.WalletRepository;
 import com.logifuture.wallet.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ public abstract class BaseWalletService {
     protected final WalletRepository walletRepository;
     protected final UserService userService;
 
-    public BaseWalletService(WalletRepository walletRepository, UserService userService) {
+    protected BaseWalletService(WalletRepository walletRepository, UserService userService) {
         this.walletRepository = walletRepository;
         this.userService = userService;
     }
@@ -30,7 +30,7 @@ public abstract class BaseWalletService {
      * @param userId   The ID of the user.
      * @param walletId The ID of the wallet.
      * @return The wallet entity.
-     * @throws WalletNotExists           if the wallet does not exist for the given user.
+     * @throws WalletIsNotAssignedToUser           if the wallet does not exist for the given user.
      * @throws UnauthorizedUserForWallet if the user is not authorized to access the wallet.
      * @throws UserNotFoundException if no user with the specified ID is found.
      */
@@ -38,7 +38,7 @@ public abstract class BaseWalletService {
         User fetchedUser = userService.findUserById(userId);
         Wallet fetchedWallet = walletRepository.findByUserId(fetchedUser.getId()).orElseThrow(() -> {
             log.warn("For the given userID:{} wallet does not exist", fetchedUser.getId());
-            throw new WalletNotExists("User is not assigned to a wallet");
+            throw new WalletIsNotAssignedToUser("User is not assigned to a wallet");
         });
 
         if (!Objects.equals(walletId, fetchedWallet.getId())) {

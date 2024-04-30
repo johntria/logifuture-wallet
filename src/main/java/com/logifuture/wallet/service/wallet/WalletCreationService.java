@@ -8,7 +8,6 @@ import com.logifuture.wallet.entitity.Wallet;
 import com.logifuture.wallet.exceptions.user.UserNotFoundException;
 import com.logifuture.wallet.exceptions.wallet.UnauthorizedUserForWallet;
 import com.logifuture.wallet.exceptions.wallet.WalletAlreadyExists;
-import com.logifuture.wallet.exceptions.wallet.WalletNotExists;
 import com.logifuture.wallet.mapper.WalletMapper;
 import com.logifuture.wallet.repository.WalletRepository;
 import com.logifuture.wallet.service.user.UserService;
@@ -43,7 +42,6 @@ public class WalletCreationService extends BaseWalletService {
      * @return A response containing details of the created wallet.
      * @throws WalletAlreadyExists if the user already has a wallet.
      * @throws UserNotFoundException if no user with the specified ID is found.
-     * @throws WalletNotExists           if the wallet does not exist for the given user.
      * @throws UnauthorizedUserForWallet if the user is not authorized to access the wallet.
      */
     public CreateWalletResponse createWallet(CreateWalletRequest createWalletRequest) {

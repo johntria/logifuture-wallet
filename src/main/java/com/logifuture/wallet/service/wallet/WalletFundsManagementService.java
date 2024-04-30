@@ -8,7 +8,7 @@ import com.logifuture.wallet.entitity.Wallet;
 import com.logifuture.wallet.exceptions.user.UserNotFoundException;
 import com.logifuture.wallet.exceptions.wallet.UnauthorizedUserForWallet;
 import com.logifuture.wallet.exceptions.wallet.WalletBalanceException;
-import com.logifuture.wallet.exceptions.wallet.WalletNotExists;
+import com.logifuture.wallet.exceptions.wallet.WalletIsNotAssignedToUser;
 import com.logifuture.wallet.repository.WalletRepository;
 import com.logifuture.wallet.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ public class WalletFundsManagementService extends BaseWalletService {
      * @param walletId                The ID of the wallet to which funds will be added.
      * @param addFundsToWalletRequest The request containing the amount of funds to add and the user ID.
      * @throws UserNotFoundException if no user with the specified ID is found.
-     * @throws WalletNotExists           if the wallet does not exist for the given user.
+     * @throws WalletIsNotAssignedToUser           if the wallet does not exist for the given user.
      * @throws UnauthorizedUserForWallet if the user is not authorized to access the wallet.
      * @throws UserNotFoundException if no user with the specified ID is found.
      */

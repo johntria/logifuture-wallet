@@ -5,7 +5,7 @@ import com.logifuture.wallet.entitity.User;
 import com.logifuture.wallet.entitity.Wallet;
 import com.logifuture.wallet.exceptions.user.UserNotFoundException;
 import com.logifuture.wallet.exceptions.wallet.UnauthorizedUserForWallet;
-import com.logifuture.wallet.exceptions.wallet.WalletNotExists;
+import com.logifuture.wallet.exceptions.wallet.WalletIsNotAssignedToUser;
 import com.logifuture.wallet.repository.UserRepository;
 import com.logifuture.wallet.repository.WalletRepository;
 import com.logifuture.wallet.service.user.UserService;
@@ -89,11 +89,11 @@ public final class BaseWalletServiceITTest extends MockedClassOfBaseWalletServic
     /**
      * IT test for {@link BaseWalletService#getWalletByUserIdAndWalletId(Long, Long)}
      * Given: Existing userid without existing wallet id
-     * Expected: {@link WalletNotExists}
+     * Expected: {@link WalletIsNotAssignedToUser}
      */
     @Test
     void test_given_existing_user_id_with_not_related_wallet_id_expected_exception() {
-        WalletNotExists exc = assertThrows(WalletNotExists.class, () -> underTest.getWalletByUserIdAndWalletId(userWithOutWallet.getId(), walletOfUser.getId()));
+        WalletIsNotAssignedToUser exc = assertThrows(WalletIsNotAssignedToUser.class, () -> underTest.getWalletByUserIdAndWalletId(userWithOutWallet.getId(), walletOfUser.getId()));
         assertEquals("User is not assigned to a wallet", exc.getMessage());
     }
 

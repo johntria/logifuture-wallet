@@ -29,13 +29,13 @@ public class WalletGlobalExceptionHandler  {
 
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(value = {WalletNotExists.class})
-    public ErrorDTO handleException(WalletNotExists walletNotExistsExc) {
-        log.error(walletNotExistsExc.getMessage(), walletNotExistsExc);
+    @ExceptionHandler(value = {WalletIsNotAssignedToUser.class})
+    public ErrorDTO handleException(WalletIsNotAssignedToUser walletIsNotAssignedToUserExc) {
+        log.error(walletIsNotAssignedToUserExc.getMessage(), walletIsNotAssignedToUserExc);
         return ErrorDTO
                 .builder()
                 .code(HttpStatus.NOT_FOUND.getReasonPhrase())
-                .message(walletNotExistsExc.getMessage())
+                .message(walletIsNotAssignedToUserExc.getMessage())
                 .build();
     }
 
