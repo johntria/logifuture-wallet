@@ -41,14 +41,14 @@ public class WalletRestController {
     }
 
     @PostMapping("/{walletId}/add-funds")
-    public ResponseEntity addFundsToWallet(@PathVariable Long walletId, @RequestBody AddFundsToWalletRequest addFundsToWalletRequest) {
+    public ResponseEntity<Void>  addFundsToWallet(@PathVariable Long walletId, @RequestBody AddFundsToWalletRequest addFundsToWalletRequest) {
         log.info("User with id:{} and wallet id: {} asked to add: {} in wallet", addFundsToWalletRequest.userId(), walletId, addFundsToWalletRequest.amount());
         walletFundsManagementService.addFunds(walletId, addFundsToWalletRequest);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{walletId}/remove-funds")
-    public ResponseEntity removeFundsFromWallet(@PathVariable Long walletId, @RequestBody RemoveFundsFromWalletRequest removeFundsFromWalletRequest) {
+    public ResponseEntity<Void> removeFundsFromWallet(@PathVariable Long walletId, @RequestBody RemoveFundsFromWalletRequest removeFundsFromWalletRequest) {
         log.info("User with id:{} and wallet id: {} asked to remove: {} from wallet", removeFundsFromWalletRequest.userId(), walletId, removeFundsFromWalletRequest.amount());
         walletFundsManagementService.removeFunds(walletId, removeFundsFromWalletRequest);
         return ResponseEntity.ok().build();
