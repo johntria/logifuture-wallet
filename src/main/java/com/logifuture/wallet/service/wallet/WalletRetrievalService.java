@@ -36,7 +36,7 @@ public class WalletRetrievalService extends BaseWalletService {
      * @return A response containing details of the requested wallet.
      */
     public GetWalletResponse getWallet(Long walletId, GetWalletRequest getWalletRequest) {
-        Wallet fetchedWallet = getWalletByUserIdAndWalletId(walletId, getWalletRequest.userId());
+        Wallet fetchedWallet = getWalletByUserIdAndWalletId(getWalletRequest.userId(),walletId);
         return walletMapper.walletToGetWalletResponse(fetchedWallet);
     }
 }
