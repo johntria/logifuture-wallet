@@ -42,21 +42,21 @@ public class WalletRestController {
     }
 
     @PutMapping("/{walletId}/add-funds")
-    public ResponseEntity<Void>  addFundsToWallet(@PathVariable Long walletId, @RequestBody AddFundsToWalletRequest addFundsToWalletRequest) {
+    public ResponseEntity<Void>  addFundsToWallet(@PathVariable Long walletId, @Valid  @RequestBody AddFundsToWalletRequest addFundsToWalletRequest) {
         log.info("User with id:{} and wallet id: {} asked to add: {} in wallet", addFundsToWalletRequest.userId(), walletId, addFundsToWalletRequest.amount());
         walletFundsManagementService.addFunds(walletId, addFundsToWalletRequest);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{walletId}/remove-funds")
-    public ResponseEntity<Void> removeFundsFromWallet(@PathVariable Long walletId, @RequestBody RemoveFundsFromWalletRequest removeFundsFromWalletRequest) {
+    public ResponseEntity<Void> removeFundsFromWallet(@PathVariable Long walletId,@Valid  @RequestBody RemoveFundsFromWalletRequest removeFundsFromWalletRequest) {
         log.info("User with id:{} and wallet id: {} asked to remove: {} from wallet", removeFundsFromWalletRequest.userId(), walletId, removeFundsFromWalletRequest.amount());
         walletFundsManagementService.removeFunds(walletId, removeFundsFromWalletRequest);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{walletId}")
-    public ResponseEntity<GetWalletResponse> getWallet(@PathVariable Long walletId, @RequestBody GetWalletRequest getWalletRequest) {
+    public ResponseEntity<GetWalletResponse> getWallet(@PathVariable Long walletId, @RequestBody @Valid  GetWalletRequest getWalletRequest) {
         GetWalletResponse outputDTO = walletRetrievalService.getWallet(walletId,getWalletRequest);
         return ResponseEntity.ok(outputDTO);
     }
