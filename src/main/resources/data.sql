@@ -6,7 +6,7 @@ SELECT nextval('public.users_seq'), 'John', 'Triantafyllakis'
 );
 
 INSERT INTO public.wallet (balance, id, user_id, state)
-SELECT 0.00, nextval('public.wallet_seq'), u.id, 'AVAILABLE_BALANCE'
+SELECT 10.00, nextval('public.wallet_seq'), u.id, 'AVAILABLE_BALANCE'
 FROM public.users u
 WHERE u.first_name = 'John' AND u.last_name = 'Triantafyllakis'
   AND NOT EXISTS (
