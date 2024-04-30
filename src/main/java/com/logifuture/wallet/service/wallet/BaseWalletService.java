@@ -16,8 +16,8 @@ import java.util.Objects;
  */
 @Slf4j
 public abstract class BaseWalletService {
-    protected final WalletRepository walletRepository;
-    protected final UserService userService;
+    private final WalletRepository walletRepository;
+    private final UserService userService;
 
     protected BaseWalletService(WalletRepository walletRepository, UserService userService) {
         this.walletRepository = walletRepository;
