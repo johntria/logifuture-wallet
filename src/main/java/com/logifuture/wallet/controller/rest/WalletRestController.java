@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,14 +41,14 @@ public class WalletRestController {
         return ResponseEntity.ok(walletCreationService.createWallet(createWalletRequest));
     }
 
-    @PostMapping("/{walletId}/add-funds")
+    @PutMapping("/{walletId}/add-funds")
     public ResponseEntity<Void>  addFundsToWallet(@PathVariable Long walletId, @RequestBody AddFundsToWalletRequest addFundsToWalletRequest) {
         log.info("User with id:{} and wallet id: {} asked to add: {} in wallet", addFundsToWalletRequest.userId(), walletId, addFundsToWalletRequest.amount());
         walletFundsManagementService.addFunds(walletId, addFundsToWalletRequest);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/{walletId}/remove-funds")
+    @PutMapping("/{walletId}/remove-funds")
     public ResponseEntity<Void> removeFundsFromWallet(@PathVariable Long walletId, @RequestBody RemoveFundsFromWalletRequest removeFundsFromWalletRequest) {
         log.info("User with id:{} and wallet id: {} asked to remove: {} from wallet", removeFundsFromWalletRequest.userId(), walletId, removeFundsFromWalletRequest.amount());
         walletFundsManagementService.removeFunds(walletId, removeFundsFromWalletRequest);
