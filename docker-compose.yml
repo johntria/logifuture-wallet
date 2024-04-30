@@ -3,38 +3,28 @@ services:
     build: .
     ports:
       - "8080:8080"
+    env_file:
+      - .env
     depends_on:
       db:
         condition: service_healthy
-      test:
-        condition: service_completed_successfully
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/wallet
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: password
 
   db:
-    image: mysql:latest
-    environment:
-      MYSQL_DATABASE: wallet
-      MYSQL_ROOT_PASSWORD: password
+    image: postgres:latest
+    restart: always
+    env_file:
+      - .env
     ports:
-      - "3306:3306"
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD-SHELL", "exit | mysql -h localhost -P 3306 -u root -p$$MYSQL_ROOT_PASSWORD" ]
-      interval: 5s
-      timeout: 20s
-      retries: 30
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
 
-  test:
-    build:
-      context: .
-      target: tester
-      dockerfile: Dockerfile
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/wallet
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: password
-    depends_on:
-      db:
-        condition: service_healthy
+
+volumes:
+  db-data:
+    driver: local

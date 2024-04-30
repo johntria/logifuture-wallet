@@ -4,10 +4,12 @@ COPY .mvn .mvn
 COPY mvnw pom.xml ./
 RUN ./mvnw dependency:go-offline
 COPY src ./src
-RUN ./mvnw package -DskipTests
+RUN ./mvnw package -DskipTests=true
 
-FROM builder AS tester
-RUN ./mvnw test
+
+#todo: Install DinD(Docker in Docker) for tests and add it in compose
+#FROM builder AS tester
+#RUN ./mvnw test
 
 FROM openjdk:21-oracle AS runner
 WORKDIR /app
