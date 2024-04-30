@@ -1,13 +1,11 @@
-package com.logifuture.wallet.entitites;
+package com.logifuture.wallet.entitity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,15 +19,16 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "users")
+@Table(name = "users", schema = "public")
 public class User {
 
     /**
      * The unique identifier for the user.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
+    @SequenceGenerator(name = "users_seq", schema = "public", sequenceName = "users_seq", initialValue = 1, allocationSize = 1)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
     /**
@@ -44,10 +43,5 @@ public class User {
     @Column(name = "lastName")
     private String lastName;
 
-    /**
-     * The wallet associated with the user.
-     */
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "wallet_id", referencedColumnName = "id")
-    private Wallet wallet;
+
 }
