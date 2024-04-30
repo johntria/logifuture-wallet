@@ -1,6 +1,6 @@
 package com.logifuture.wallet.repository;
 
-import com.logifuture.wallet.entitites.User;
+import com.logifuture.wallet.entitity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
