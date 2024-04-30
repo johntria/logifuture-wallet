@@ -14,4 +14,4 @@ RUN ./mvnw package -DskipTests=true
 FROM openjdk:21-oracle AS runner
 WORKDIR /app
 COPY --from=builder /app/target/*.jar ./app.jar
-CMD ["java", "-jar", "app.jar"]
+CMD ["java","-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5081", "-jar", "app.jar"]
